@@ -1,0 +1,9 @@
+{
+  "name": "depravity-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DEPRAVITY compression collection storefront with Stripe Checkout",
+  "dependencies": {
+    "stripe": "^16.0.0"
+  }
+}
