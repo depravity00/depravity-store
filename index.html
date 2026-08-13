@@ -88,6 +88,23 @@
     transition:border-color .2s, transform .15s;
   }
   .cart-btn:hover{border-color:var(--ember-bright);}
+  .sold-out-note{
+    display:none;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:.65rem;
+    letter-spacing:.12em;
+    color:var(--ash);
+    border:1px solid var(--hairline);
+    padding:6px 12px;
+    margin-right:14px;
+  }
+  .sold-out-note.show{ display:flex; }
+  .sold-out-note .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--ember-bright);
+  }
   .cart-btn.pulse{animation:cartPulse .4s ease;}
   @keyframes cartPulse{0%{transform:scale(1);}35%{transform:scale(1.12) rotate(-2deg);}70%{transform:scale(.97) rotate(1deg);}100%{transform:scale(1);}}
   #cartCount{
@@ -437,6 +454,7 @@
     <a href="#about">ABOUT</a>
     <a href="#contact">CONTACT</a>
   </div>
+ <span class="sold-out-note" id="soldOutNote"><span class="dot"></span><span id="soldOutText"></span></span>
   <button class="cart-btn" id="cartBtn" aria-label="Open cart">CART <span id="cartCount">0</span></button>
 </nav>
 
@@ -970,11 +988,23 @@ document.addEventListener('keydown', e=>{
 });
 
 /* ---------- init ---------- */
-renderGrid();
+function renderSoldOutNote(){
+  const count = PRODUCTS.filter(p => p.soldOut).length;
+  const note = document.getElementById('soldOutNote');
+  const text = document.getElementById('soldOutText');
+  if(count > 0){
+    text.textContent = count === 1 ? '1 STYLE SOLD OUT' : `${count} STYLES SOLD OUT`;
+    note.classList.add('show');
+  } else {
+    note.classList.remove('show');
+  }
+}
+  renderGrid();
 initReveal();
 renderCart();
 renderCountdown();
 initHero();
+ renderSoldOutNote(); 
 </script>
 </body>
 </html>
