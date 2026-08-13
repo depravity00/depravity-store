@@ -55,10 +55,11 @@ export default async function handler(req, res) {
 
     const origin = req.headers.origin || `https://${req.headers.host}`;
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items,
-      shipping_address_collection: {
+ const session = await stripe.checkout.sessions.create({
+  mode: 'payment',
+  allow_promotion_codes: true,
+  line_items,
+  shipping_address_collection: { 
         allowed_countries: [
           'AC','AD','AE','AF','AG','AI','AL','AM','AO','AQ','AR','AT','AU','AW','AX','AZ',
           'BA','BB','BD','BE','BF','BG','BH','BI','BJ','BL','BM','BN','BO','BQ','BR','BS','BT','BV','BW','BY','BZ',
